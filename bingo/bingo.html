@@ -5,8 +5,9 @@
 	<title>年会抽奖</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <style>
-	#main{margin:0 auto;font-size: 12px;position: relative;}
+	body{margin:0 auto;font-size: 12px;}
 	div{display: inline-block;width: 42px;height: 42px;line-height: 42px;border-radius: 50%;color: white;cursor: pointer;text-align: center;}
+	div:hover{outline:none;}
 	.red{background: #fd7d7f;}
 	.orange{background: #fdbd43;}
 	.yellow{background: #f4e447;}
@@ -16,7 +17,7 @@
 	.gray{background: #ccc;}
 	.black{background: #222;-webkit-transform: scale(2);}
 	.layout{margin-left: -3px;}
-	#number{position:absolute;top:50%;left:50%;font-size: 20px;display: none;}
+	#number{position:absolute;top:50%;left:50%;margin-left:-42px;margin-top:-42px;font-size: 20px;display: none;}
 </style>
 </head>
 <body ng-controller="ctrl">
@@ -36,7 +37,7 @@
 		<div class="red layout" ng-click="bingo(1,'red')">特等奖</div>
 		<div id="number" class="black"></div>
 	</section>
-	<audio id="music" src="audio/effect.mp3"></audio>
+	<audio id="music" src="https://ofa83l6ao.qnssl.com/effect.mp3"></audio>
 <script src="http://cdn.bootcss.com/angular.js/1.2.2/angular.min.js"></script>
 <script>
 	var app = angular.module('app',[]);
