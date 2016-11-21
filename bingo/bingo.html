@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+<head>
+	<meta charset="UTF-8">
+	<title>年会抽奖</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<style>
+	#main{margin:0 auto;font-size: 12px;position: relative;}
+	div{display: inline-block;width: 42px;height: 42px;line-height: 42px;border-radius: 50%;color: white;cursor: pointer;text-align: center;}
+	.red{background: #fd7d7f;}
+	.orange{background: #fdbd43;}
+	.yellow{background: #f4e447;}
+	.green{background: #b5df3a;}
+	.blue{background: #83c9fd;}
+	.purple{background: #e3a7fd;}
+	.gray{background: #ccc;}
+	.black{background: #222;-webkit-transform: scale(2);}
+	.layout{margin-left: -3px;}
+	#number{position:absolute;top:50%;left:50%;font-size: 20px;display: none;}
+</style>
+</head>
+<body ng-controller="ctrl">
+  <section id="main">
+		<div ng-repeat="row in rows" id="{{row._id}}" ng-click="count=count+1" ng-init="count=0" class="gray">
+			<div ng-if="count%2==0">
+				{{row.name}}
+			</div>
+			<div ng-if="count%2==1" class="purple">
+				{{row.department}}
+			</div>
+		</div>
+		<div class="blue layout" ng-click="bingo(35,'blue')">四等奖</div>
+		<div class="green layout" ng-click="bingo(20,'green')">三等奖</div>
+		<div class="yellow layout" ng-click="bingo(9,'yellow')">二等奖</div>
+		<div class="orange layout" ng-click="bingo(3,'orange')">一等奖</div>
+		<div class="red layout" ng-click="bingo(1,'red')">特等奖</div>
+		<div id="number" class="black"></div>
+	</section>
+	<audio id="music" src="audio/effect.mp3"></audio>
+<script src="http://cdn.bootcss.com/angular.js/1.2.2/angular.min.js"></script>
+<script>
+	var app = angular.module('app',[]);
+	app.controller('ctrl',function($scope,$http){
+		var data =[
+    {
+        "_id" : "54d47e2a850ad01efbc23104",
+        "department" : "总裁办",
+        "name" : "周航"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23105",
+        "department" : "总裁办",
+        "name" : "林巍"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23106",
+        "department" : "总裁办",
+        "name" : "尹守华"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23107",
+        "department" : "技术部",
+        "name" : "汤鹏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23108",
+        "department" : "技术部",
+        "name" : "陈超童"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23109",
+        "department" : "技术部",
+        "name" : "王柏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2310a",
+        "department" : "技术部",
+        "name" : "罗建波"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2310b",
+        "department" : "技术部",
+        "name" : "王少林"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2310c",
+        "department" : "技术部",
+        "name" : "刘峰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2310d",
+        "department" : "技术部",
+        "name" : "高文瑞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2310e",
+        "department" : "技术部",
+        "name" : "黄洋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2310f",
+        "department" : "技术部",
+        "name" : "姚俊先"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23110",
+        "department" : "技术部",
+        "name" : "漆新亮"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23111",
+        "department" : "技术部",
+        "name" : "吕强"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23112",
+        "department" : "技术部",
+        "name" : "刘明明"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23113",
+        "department" : "技术部",
+        "name" : "李春龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23114",
+        "department" : "技术部",
+        "name" : "瞿红丽"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23115",
+        "department" : "技术部",
+        "name" : "韩昊然"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23116",
+        "department" : "技术部",
+        "name" : "蒋志轩"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23117",
+        "department" : "技术部",
+        "name" : "黄金"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23118",
+        "department" : "技术部",
+        "name" : "付磊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23119",
+        "department" : "技术部",
+        "name" : "于金海"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2311a",
+        "department" : "技术部",
+        "name" : "闫龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2311b",
+        "department" : "技术部",
+        "name" : "王洪磊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2311c",
+        "department" : "技术部",
+        "name" : "李小丹"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2311d",
+        "department" : "技术部",
+        "name" : "王碧波"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2311e",
+        "department" : "技术部",
+        "name" : "刘畅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2311f",
+        "department" : "技术部",
+        "name" : "张岩"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23120",
+        "department" : "技术部",
+        "name" : "项连志"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23121",
+        "department" : "技术部",
+        "name" : "郭晓东"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23122",
+        "department" : "技术部",
+        "name" : "郑晕"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23123",
+        "department" : "技术部",
+        "name" : "王晶"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23124",
+        "department" : "技术部",
+        "name" : "杨彦辉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23125",
+        "department" : "技术部",
+        "name" : "唐义辉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23126",
+        "department" : "技术部",
+        "name" : "程涛"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23127",
+        "department" : "技术部",
+        "name" : "王兴华"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23128",
+        "department" : "技术部",
+        "name" : "魏浩哲"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23129",
+        "department" : "技术部",
+        "name" : "任鑫昌"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2312a",
+        "department" : "技术部",
+        "name" : "董国伟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2312b",
+        "department" : "技术部",
+        "name" : "张春生"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2312c",
+        "department" : "技术部",
+        "name" : "杨星园"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2312d",
+        "department" : "技术部",
+        "name" : "刘尚吉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2312e",
+        "department" : "技术部",
+        "name" : "张雅品"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2312f",
+        "department" : "技术部",
+        "name" : "征安全"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23130",
+        "department" : "技术部",
+        "name" : "王占分"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23131",
+        "department" : "技术部",
+        "name" : "胡竹山"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23132",
+        "department" : "技术部",
+        "name" : "胡晓冬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23133",
+        "department" : "技术部",
+        "name" : "袁艳艳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23134",
+        "department" : "技术部",
+        "name" : "杜静杰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23135",
+        "department" : "技术部",
+        "name" : "何冰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23136",
+        "department" : "技术部",
+        "name" : "赵旭东"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23137",
+        "department" : "技术部",
+        "name" : "武晓方"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23138",
+        "department" : "技术部",
+        "name" : "王博"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23139",
+        "department" : "技术部",
+        "name" : "李帅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2313a",
+        "department" : "技术部",
+        "name" : "王亚东"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2313b",
+        "department" : "技术部",
+        "name" : "张茫原"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2313c",
+        "department" : "技术部",
+        "name" : "刘亚东"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2313d",
+        "department" : "技术部",
+        "name" : "张晓飞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2313e",
+        "department" : "技术部",
+        "name" : "孙紫玲"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2313f",
+        "department" : "技术部",
+        "name" : "李红力"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23140",
+        "department" : "技术部",
+        "name" : "赵学智"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23141",
+        "department" : "技术部",
+        "name" : "刘娜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23142",
+        "department" : "技术部",
+        "name" : "罗水生"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23143",
+        "department" : "技术部",
+        "name" : "马浩然"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23144",
+        "department" : "技术部",
+        "name" : "罗婧莹"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23145",
+        "department" : "技术部",
+        "name" : "孙金萌"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23146",
+        "department" : "技术部",
+        "name" : "刘晓乾"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23147",
+        "department" : "技术部",
+        "name" : "叶开华"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23148",
+        "department" : "技术部",
+        "name" : "赵强"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23149",
+        "department" : "技术部",
+        "name" : "张森"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2314a",
+        "department" : "技术部",
+        "name" : "赵光辉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2314b",
+        "department" : "技术部",
+        "name" : "王浩月"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2314c",
+        "department" : "技术部",
+        "name" : "蔡增辉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2314d",
+        "department" : "技术部",
+        "name" : "朱钦"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2314e",
+        "department" : "技术部",
+        "name" : "曾安能"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2314f",
+        "department" : "技术部",
+        "name" : "刘长炯"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23150",
+        "department" : "技术部",
+        "name" : "刘闰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23151",
+        "department" : "技术部",
+        "name" : "苏健"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23152",
+        "department" : "技术部",
+        "name" : "陈鑫"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23153",
+        "department" : "技术部",
+        "name" : "乞文超"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23154",
+        "department" : "技术部",
+        "name" : "潘大博"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23155",
+        "department" : "技术部",
+        "name" : "刘宁宁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23156",
+        "department" : "技术部",
+        "name" : "刘明瑞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23157",
+        "department" : "技术部",
+        "name" : "刘菲"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23158",
+        "department" : "技术部",
+        "name" : "郭效江"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23159",
+        "department" : "技术部",
+        "name" : "余庆"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2315a",
+        "department" : "技术部",
+        "name" : "叶东富"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2315b",
+        "department" : "技术部",
+        "name" : "廖再学"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2315c",
+        "department" : "技术部",
+        "name" : "刘宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2315d",
+        "department" : "技术部",
+        "name" : "张盼"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2315e",
+        "department" : "技术部",
+        "name" : "姜建剑"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2315f",
+        "department" : "技术部",
+        "name" : "刘磊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23160",
+        "department" : "技术部",
+        "name" : "李丁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23161",
+        "department" : "测试部",
+        "name" : "孙大朋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23162",
+        "department" : "测试部",
+        "name" : "石梓钊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23163",
+        "department" : "测试部",
+        "name" : "鲍长青"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23164",
+        "department" : "测试部",
+        "name" : "贾浩"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23165",
+        "department" : "测试部",
+        "name" : "杨帆"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23166",
+        "department" : "测试部",
+        "name" : "汤耀"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23167",
+        "department" : "测试部",
+        "name" : "万煜康"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23168",
+        "department" : "测试部",
+        "name" : "王璐"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23169",
+        "department" : "测试部",
+        "name" : "王伟江"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2316a",
+        "department" : "测试部",
+        "name" : "金宗杰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2316b",
+        "department" : "测试部",
+        "name" : "宫海涛"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2316c",
+        "department" : "测试部",
+        "name" : "武彦"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2316d",
+        "department" : "测试部",
+        "name" : "董娟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2316e",
+        "department" : "测试部",
+        "name" : "王梦龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2316f",
+        "department" : "测试部",
+        "name" : "宋玉娜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23170",
+        "department" : "测试部",
+        "name" : "闫博"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23171",
+        "department" : "测试部",
+        "name" : "景云"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23172",
+        "department" : "测试部",
+        "name" : "武成龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23173",
+        "department" : "测试部",
+        "name" : "马梦"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23174",
+        "department" : "测试部",
+        "name" : "刘关龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23175",
+        "department" : "测试部",
+        "name" : "李素娟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23176",
+        "department" : "测试部",
+        "name" : "李晨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23177",
+        "department" : "测试部",
+        "name" : "徐帅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23178",
+        "department" : "测试部",
+        "name" : "李进"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23179",
+        "department" : "测试部",
+        "name" : "朱丽霞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2317a",
+        "department" : "测试部",
+        "name" : "施伟光"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2317b",
+        "department" : "测试部",
+        "name" : "杨曦"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2317c",
+        "department" : "测试部",
+        "name" : "卢环"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2317e",
+        "department" : "测试部",
+        "name" : "菅雅楠"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2317f",
+        "department" : "测试部",
+        "name" : "孟凡侠"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23180",
+        "department" : "测试部",
+        "name" : "李晓静"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23181",
+        "department" : "测试部",
+        "name" : "任庆虎"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23182",
+        "department" : "测试部",
+        "name" : "程思"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23183",
+        "department" : "测试部",
+        "name" : "康伟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23184",
+        "department" : "测试部",
+        "name" : "陈晨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23185",
+        "department" : "运维部",
+        "name" : "郭永健"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23186",
+        "department" : "运维部",
+        "name" : "穆鑫龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23187",
+        "department" : "运维部",
+        "name" : "荀涛"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23188",
+        "department" : "运维部",
+        "name" : "李旭东"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23189",
+        "department" : "运维部",
+        "name" : "许海龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2318a",
+        "department" : "SQA",
+        "name" : "李文雅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2318b",
+        "department" : "SQA",
+        "name" : "尹利霞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2318c",
+        "department" : "SQA",
+        "name" : "李庆民"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2318d",
+        "department" : "产品部",
+        "name" : "朱坤"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2318e",
+        "department" : "产品部",
+        "name" : "王湘兰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2318f",
+        "department" : "产品部",
+        "name" : "彭玉倩"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23190",
+        "department" : "产品部",
+        "name" : "初晓"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23191",
+        "department" : "产品部",
+        "name" : "王刚"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23192",
+        "department" : "产品部",
+        "name" : "宋林娜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23193",
+        "department" : "产品部",
+        "name" : "陈镇城"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23194",
+        "department" : "产品部",
+        "name" : "程韬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23195",
+        "department" : "产品部",
+        "name" : "张胜成"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23196",
+        "department" : "产品部",
+        "name" : "赵志鹏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23197",
+        "department" : "产品部",
+        "name" : "张炅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23198",
+        "department" : "产品部",
+        "name" : "王攀"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23199",
+        "department" : "产品部",
+        "name" : "郑丽阳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2319a",
+        "department" : "产品部",
+        "name" : "王皝"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2319b",
+        "department" : "产品部",
+        "name" : "陈香华"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2319c",
+        "department" : "产品部",
+        "name" : "李世辉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2319d",
+        "department" : "产品部",
+        "name" : "杨庆"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2319e",
+        "department" : "产品部",
+        "name" : "刘勋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2319f",
+        "department" : "产品部",
+        "name" : "陈雄"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a0",
+        "department" : "产品部",
+        "name" : "李宁宁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a1",
+        "department" : "产品部",
+        "name" : "程昕瑀"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a2",
+        "department" : "UED",
+        "name" : "刘湛宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a3",
+        "department" : "UED",
+        "name" : "朱颖"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a4",
+        "department" : "UED",
+        "name" : "杜荆晶"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a5",
+        "department" : "UED",
+        "name" : "杨宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a6",
+        "department" : "UED",
+        "name" : "陈峰彬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a7",
+        "department" : "UED",
+        "name" : "陈利红"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a8",
+        "department" : "UED",
+        "name" : "陈炜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231a9",
+        "department" : "UED",
+        "name" : "刘博"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231aa",
+        "department" : "UED",
+        "name" : "杨溪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ab",
+        "department" : "UED",
+        "name" : "张鑫"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ac",
+        "department" : "UED",
+        "name" : "丁嘉南"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ad",
+        "department" : "UED",
+        "name" : "朴栋植"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ae",
+        "department" : "UED",
+        "name" : "王惠"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231af",
+        "department" : "市场部",
+        "name" : "朱月怡"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b0",
+        "department" : "市场部",
+        "name" : "胡绪雷"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b1",
+        "department" : "市场部",
+        "name" : "郭肇州"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b2",
+        "department" : "市场部",
+        "name" : "尹思思"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b3",
+        "department" : "市场部",
+        "name" : "段逸辰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b4",
+        "department" : "市场部",
+        "name" : "高健"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b5",
+        "department" : "市场部",
+        "name" : "汪凯"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b6",
+        "department" : "市场部",
+        "name" : "王梦瑶"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b7",
+        "department" : "市场部",
+        "name" : "赵兵"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b8",
+        "department" : "市场部",
+        "name" : "王韵佳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231b9",
+        "department" : "市场部",
+        "name" : "范秋虹"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ba",
+        "department" : "市场部",
+        "name" : "刘奕昕"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231bb",
+        "department" : "市场部",
+        "name" : "张小宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231bc",
+        "department" : "市场部",
+        "name" : "杜晓东"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231bd",
+        "department" : "市场部",
+        "name" : "李乐"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231be",
+        "department" : "市场部",
+        "name" : "杜洋洋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231bf",
+        "department" : "市场部",
+        "name" : "刘畅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c0",
+        "department" : "市场部",
+        "name" : "许晓静"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c1",
+        "department" : "市场部",
+        "name" : "徐娅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c2",
+        "department" : "市场部",
+        "name" : "孙妍"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c3",
+        "department" : "市场部",
+        "name" : "冯成"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c4",
+        "department" : "市场部",
+        "name" : "孙娟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c5",
+        "department" : "市场部",
+        "name" : "刘春梅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c6",
+        "department" : "市场部",
+        "name" : "喻柳杏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c7",
+        "department" : "市场部",
+        "name" : "冯岩松"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c8",
+        "department" : "市场部",
+        "name" : "张静"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231c9",
+        "department" : "市场部",
+        "name" : "关超"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ca",
+        "department" : "市场部",
+        "name" : "李伟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231cb",
+        "department" : "市场部",
+        "name" : "袁章书"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231cc",
+        "department" : "市场部",
+        "name" : "王海滨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231cd",
+        "department" : "市场部",
+        "name" : "赵雪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ce",
+        "department" : "市场部",
+        "name" : "刘超"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231cf",
+        "department" : "市场部",
+        "name" : "田雪飞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d0",
+        "department" : "市场部",
+        "name" : "党东堃"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d1",
+        "department" : "市场部",
+        "name" : "杨丽"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d2",
+        "department" : "市场部",
+        "name" : "张明远"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d3",
+        "department" : "市场部",
+        "name" : "张凡"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d4",
+        "department" : "市场部",
+        "name" : "黄菠"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d5",
+        "department" : "运营部",
+        "name" : "杨芸"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d6",
+        "department" : "运营部",
+        "name" : "黄剑波"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d7",
+        "department" : "运营部",
+        "name" : "卢汉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d8",
+        "department" : "运营部",
+        "name" : "常星"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231d9",
+        "department" : "运营部",
+        "name" : "何龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231da",
+        "department" : "运营部",
+        "name" : "郑伟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231db",
+        "department" : "运营部",
+        "name" : "李沫"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231dc",
+        "department" : "运营部",
+        "name" : "王华兰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231dd",
+        "department" : "运营部",
+        "name" : "张念"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231de",
+        "department" : "运营部",
+        "name" : "陈晔"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231df",
+        "department" : "运营部",
+        "name" : "毛传林"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e0",
+        "department" : "运营部",
+        "name" : "李超"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e1",
+        "department" : "运营部",
+        "name" : "于海洋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e2",
+        "department" : "运营部",
+        "name" : "张春柳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e3",
+        "department" : "运营部",
+        "name" : "李霍平"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e4",
+        "department" : "运营部",
+        "name" : "杨钢柱"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e5",
+        "department" : "运营部",
+        "name" : "韦承洁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e6",
+        "department" : "运营部",
+        "name" : "祁远"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e7",
+        "department" : "运营部",
+        "name" : "马彬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e8",
+        "department" : "运营部",
+        "name" : "潘可欣"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231e9",
+        "department" : "运营部",
+        "name" : "周志佳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ea",
+        "department" : "运营部",
+        "name" : "程文莉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231eb",
+        "department" : "运营部",
+        "name" : "李春雷"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ec",
+        "department" : "运营部",
+        "name" : "卫振"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ed",
+        "department" : "运营部",
+        "name" : "陈屹立"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ee",
+        "department" : "运营部",
+        "name" : "王海航"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ef",
+        "department" : "运营部",
+        "name" : "曹磊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f0",
+        "department" : "运营部",
+        "name" : "孙会谋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f1",
+        "department" : "运营部",
+        "name" : "于长哲"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f2",
+        "department" : "财务部",
+        "name" : "乔华"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f3",
+        "department" : "财务部",
+        "name" : "徐淑华"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f4",
+        "department" : "财务部",
+        "name" : "赵洁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f5",
+        "department" : "财务部",
+        "name" : "刘金平"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f6",
+        "department" : "财务部",
+        "name" : "楚新颖"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f7",
+        "department" : "财务部",
+        "name" : "殷敏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f8",
+        "department" : "财务部",
+        "name" : "刘丽利"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231f9",
+        "department" : "财务部",
+        "name" : "李敬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231fa",
+        "department" : "财务部",
+        "name" : "孟翠方"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231fb",
+        "department" : "财务部",
+        "name" : "田园园"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231fc",
+        "department" : "财务部",
+        "name" : "陈丹"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231fd",
+        "department" : "财务部",
+        "name" : "金志攀"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231fe",
+        "department" : "财务部",
+        "name" : "闫文博"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc231ff",
+        "department" : "HR",
+        "name" : "刘桦"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23200",
+        "department" : "HR",
+        "name" : "张晨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23201",
+        "department" : "HR",
+        "name" : "白璐"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23202",
+        "department" : "HR",
+        "name" : "车淑贤"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23203",
+        "department" : "HR",
+        "name" : "路文雯"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23204",
+        "department" : "HR",
+        "name" : "李程"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23205",
+        "department" : "HR",
+        "name" : "刘鑫娟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23206",
+        "department" : "HR",
+        "name" : "关婷婷"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23207",
+        "department" : "行政部",
+        "name" : "刘颖"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23208",
+        "department" : "行政部",
+        "name" : "惠菲"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23209",
+        "department" : "行政部",
+        "name" : "马楠"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2320a",
+        "department" : "行政部",
+        "name" : "宫雪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2320b",
+        "department" : "行政部",
+        "name" : "张克杭"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2320c",
+        "department" : "行政部",
+        "name" : "韩龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2320d",
+        "department" : "行政部",
+        "name" : "张帆"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2320e",
+        "department" : "政府部",
+        "name" : "毕盛"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2320f",
+        "department" : "政府部",
+        "name" : "梁帅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23210",
+        "department" : "政府部",
+        "name" : "周斐菲"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23211",
+        "department" : "客服部",
+        "name" : "杜铎"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23212",
+        "department" : "客服部",
+        "name" : "陆超"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23213",
+        "department" : "客服部",
+        "name" : "彭兰平"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23214",
+        "department" : "客服部",
+        "name" : "孙亚男"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23215",
+        "department" : "客服部",
+        "name" : "李博阳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23216",
+        "department" : "客服部",
+        "name" : "张颖"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23217",
+        "department" : "客服部",
+        "name" : "张震"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23218",
+        "department" : "客服部",
+        "name" : "袁伟敬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23219",
+        "department" : "客服部",
+        "name" : "张志文"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2321a",
+        "department" : "客服部",
+        "name" : "刘睿"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2321b",
+        "department" : "客服部",
+        "name" : "黄蕾震"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2321c",
+        "department" : "客服部",
+        "name" : "杨帆"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2321d",
+        "department" : "客服部",
+        "name" : "郑迎春"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2321e",
+        "department" : "客服部",
+        "name" : "魏雨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2321f",
+        "department" : "客服部",
+        "name" : "廖琼琼"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23220",
+        "department" : "客服部",
+        "name" : "李瑞鑫"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23221",
+        "department" : "客服部",
+        "name" : "冯建美"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23222",
+        "department" : "客服部",
+        "name" : "张丽丽"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23223",
+        "department" : "客服部",
+        "name" : "李艳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23224",
+        "department" : "客服部",
+        "name" : "陈凯"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23225",
+        "department" : "客服部",
+        "name" : "王荣荣"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23226",
+        "department" : "客服部",
+        "name" : "徐月"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23227",
+        "department" : "客服部",
+        "name" : "王书举"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23228",
+        "department" : "客服部",
+        "name" : "张倩倩"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23229",
+        "department" : "客服部",
+        "name" : "乔炜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2322a",
+        "department" : "客服部",
+        "name" : "康开太"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2322b",
+        "department" : "客服部",
+        "name" : "周文艺"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2322c",
+        "department" : "客服部",
+        "name" : "李杨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2322d",
+        "department" : "客服部",
+        "name" : "陈怡"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2322e",
+        "department" : "客服部",
+        "name" : "付佳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2322f",
+        "department" : "客服部",
+        "name" : "黄卫杰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23230",
+        "department" : "客服部",
+        "name" : "张钱"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23231",
+        "department" : "客服部",
+        "name" : "祝雪莹"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23232",
+        "department" : "客服部",
+        "name" : "韩立杨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23233",
+        "department" : "客服部",
+        "name" : "管群"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23234",
+        "department" : "客服部",
+        "name" : "孙亚京"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23235",
+        "department" : "客服部",
+        "name" : "王亮"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23236",
+        "department" : "客服部",
+        "name" : "苏金兰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23237",
+        "department" : "客服部",
+        "name" : "靳冬雪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23238",
+        "department" : "客服部",
+        "name" : "钱程"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23239",
+        "department" : "客服部",
+        "name" : "徐林雁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2323a",
+        "department" : "客服部",
+        "name" : "杨洋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2323b",
+        "department" : "客服部",
+        "name" : "冀虹"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2323c",
+        "department" : "平台部",
+        "name" : "焦霖楠"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2323d",
+        "department" : "平台部",
+        "name" : "罗洋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2323e",
+        "department" : "平台部",
+        "name" : "赵丽"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2323f",
+        "department" : "平台部",
+        "name" : "孙偲"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23240",
+        "department" : "平台部",
+        "name" : "王辉兵"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23241",
+        "department" : "平台部",
+        "name" : "韩志军"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23242",
+        "department" : "平台部",
+        "name" : "张仙仙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23243",
+        "department" : "平台部",
+        "name" : "王晓冬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23244",
+        "department" : "平台部",
+        "name" : "朱新宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23245",
+        "department" : "平台部",
+        "name" : "杨丁铭"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23246",
+        "department" : "平台部",
+        "name" : "黄飞鹏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23247",
+        "department" : "平台部",
+        "name" : "张婷婷"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23248",
+        "department" : "平台部",
+        "name" : "何晓冉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23249",
+        "department" : "平台部",
+        "name" : "高峻"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2324a",
+        "department" : "平台部",
+        "name" : "郝俊颖"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2324b",
+        "department" : "BI",
+        "name" : "吴刘伟"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2324c",
+        "department" : "BI",
+        "name" : "刘光乾"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2324d",
+        "department" : "BI",
+        "name" : "蒋资聪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2324e",
+        "department" : "BI",
+        "name" : "赵香宁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2324f",
+        "department" : "渠道",
+        "name" : "岳凤龙"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23250",
+        "department" : "渠道",
+        "name" : "林剑"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23251",
+        "department" : "渠道",
+        "name" : "任天宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23252",
+        "department" : "渠道",
+        "name" : "王雷"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23253",
+        "department" : "渠道",
+        "name" : "刘平"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23254",
+        "department" : "渠道",
+        "name" : "姜鹏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23255",
+        "department" : "渠道",
+        "name" : "杨志明"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23256",
+        "department" : "渠道",
+        "name" : "王红宝"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23257",
+        "department" : "渠道",
+        "name" : "付泽民"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23258",
+        "department" : "渠道",
+        "name" : "曲冬冬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23259",
+        "department" : "渠道",
+        "name" : "高健"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2325a",
+        "department" : "渠道",
+        "name" : "陈鹏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2325b",
+        "department" : "渠道",
+        "name" : "康焕卉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2325c",
+        "department" : "渠道",
+        "name" : "游郑"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2325d",
+        "department" : "企业部",
+        "name" : "肖鹏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2325e",
+        "department" : "企业部",
+        "name" : "明婷"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2325f",
+        "department" : "企业部",
+        "name" : "柳星"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23260",
+        "department" : "企业部",
+        "name" : "孙琳"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23261",
+        "department" : "企业部",
+        "name" : "王欣宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23262",
+        "department" : "企业部",
+        "name" : "李迪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23263",
+        "department" : "企业部",
+        "name" : "杨贺"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23264",
+        "department" : "公交车",
+        "name" : "张玮"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23265",
+        "department" : "公交车",
+        "name" : "周洪喜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23266",
+        "department" : "公交车",
+        "name" : "李鑫海"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23267",
+        "department" : "公交车",
+        "name" : "梁小林"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23268",
+        "department" : "公交车",
+        "name" : "刘徐安"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23269",
+        "department" : "公交车",
+        "name" : "周浏宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2326a",
+        "department" : "公交车",
+        "name" : "刘瑞奇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2326b",
+        "department" : "创新部",
+        "name" : "周培杰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2326c",
+        "department" : "创新部",
+        "name" : "付剑超"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2326d",
+        "department" : "创新部",
+        "name" : "吴波"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2326e",
+        "department" : "专车部",
+        "name" : "纪会卿"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2326f",
+        "department" : "专车部",
+        "name" : "王铁成"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23270",
+        "department" : "专车部",
+        "name" : "宋志汉"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23271",
+        "department" : "专车部",
+        "name" : "武帅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23272",
+        "department" : "专车部",
+        "name" : "王鑫"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23273",
+        "department" : "专车部",
+        "name" : "魏腾飞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23274",
+        "department" : "专车部",
+        "name" : "黄海胜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23275",
+        "department" : "专车部",
+        "name" : "都广昊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23276",
+        "department" : "专车部",
+        "name" : "王小琴"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23277",
+        "department" : "专车部",
+        "name" : "张成鑫"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23278",
+        "department" : "专车部",
+        "name" : "高杨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23279",
+        "department" : "专车部",
+        "name" : "孙英秀"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2327a",
+        "department" : "顺风车",
+        "name" : "白炜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2327b",
+        "department" : "顺风车",
+        "name" : "闫衫衫"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2327c",
+        "department" : "顺风车",
+        "name" : "张淑梅"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2327d",
+        "department" : "顺风车",
+        "name" : "于海波"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2327e",
+        "department" : "顺风车",
+        "name" : "陈坚"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2327f",
+        "department" : "顺风车",
+        "name" : "李建"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23280",
+        "department" : "顺风车",
+        "name" : "赵晓雪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23281",
+        "department" : "顺风车",
+        "name" : "赵柯翰"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23282",
+        "department" : "顺风车",
+        "name" : "田甜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23283",
+        "department" : "顺风车",
+        "name" : "王明磊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23284",
+        "department" : "渠道部",
+        "name" : "王飞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23285",
+        "department" : "渠道部",
+        "name" : "王晓明"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23286",
+        "department" : "渠道部",
+        "name" : "刘浩"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23287",
+        "department" : "渠道部",
+        "name" : "刘晓燕"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23288",
+        "department" : "渠道部",
+        "name" : "陈昊"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23289",
+        "department" : "渠道部",
+        "name" : "王姝宁"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2328a",
+        "department" : "渠道部",
+        "name" : "石庆乐"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2328b",
+        "department" : "渠道部",
+        "name" : "齐思楠"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2328c",
+        "department" : "渠道部",
+        "name" : "邓影艺"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2328d",
+        "department" : "渠道部",
+        "name" : "贾焘"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2328e",
+        "department" : "渠道部",
+        "name" : "黄敬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2328f",
+        "department" : "金融部",
+        "name" : "方敏"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23290",
+        "department" : "金融部",
+        "name" : "于瑞卓"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23291",
+        "department" : "深圳队",
+        "name" : "汪锡锐"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23292",
+        "department" : "杭州队",
+        "name" : "郭延宇"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23293",
+        "department" : "成都队",
+        "name" : "陈亚馨"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23294",
+        "department" : "广州队",
+        "name" : "彭华"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23295",
+        "department" : "深圳队",
+        "name" : "汪锡锐"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23296",
+        "department" : "业务部",
+        "name" : "朱冬旋"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23297",
+        "department" : "业务部",
+        "name" : "高月"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23298",
+        "department" : "业务部",
+        "name" : "常爱原"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc23299",
+        "department" : "业务部",
+        "name" : "张茜"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2329a",
+        "department" : "业务部",
+        "name" : "孙琪"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2329b",
+        "department" : "业务部",
+        "name" : "李清青"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2329c",
+        "department" : "业务部",
+        "name" : "宋璐瑶"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2329d",
+        "department" : "海外部",
+        "name" : "曾繁波"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2329e",
+        "department" : "海外部",
+        "name" : "尹霞"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc2329f",
+        "department" : "海外部",
+        "name" : "郭文敬"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc232a0",
+        "department" : "海外部",
+        "name" : "李子恢"
+    },
+    {
+        "_id" : "54d47e2a850ad01efbc232a1",
+        "department" : "海外部",
+        "name" : "郭莹莹"
+    }];
+		var row = Math.floor(document.body.scrollHeight/42);
+		var column = Math.floor(document.body.scrollWidth/42);
+		var capacity = (row * column - 5);
+		$scope.rows = data.slice(0,capacity);
+		var params = $scope.rows.slice(),flag=true,millisecond=0;
+		var number = document.getElementById('number');
+		$scope.bingo=function(num,bgcolor){
+			if(!flag){
+				return;
+			}
+			flag=false;
+			document.getElementById('music').play();
+			function getArrayItems(arr, num) {
+					var return_array = new Array();//取出的数值项,保存在此数组
+					for (var i = 0; i<num; i++) {
+							if (params.length>0) {//判断如果数组还有可以取出的元素,以防下标越界
+									var arrIndex = Math.floor(Math.random()*params.length);//在数组中产生一个随机索引
+									return_array[i] = params[arrIndex];//将此随机索引的对应的数组元素值复制出来
+									params.splice(arrIndex, 1);//然后删掉此索引的数组元素,这时候temp_array变为新的数组
+							} else {
+									break;//数组中数据项取完后,退出循环,比如数组本来只有10项,但要求取出20项.
+							}
+					}
+					return return_array;
+			}
+			function randomsort(a, b) {
+				return Math.random()>.5 ? -1 : 1;//用Math.random()函数生成0~1之间的随机数与0.5比较，返回-1或1
+			}
+			setTimeout(function(){
+				var timer = setInterval(function(){
+					millisecond+=2000;
+					if(millisecond==2000){
+						number.style.display='block';
+						number.innerHTML='5';
+					}
+					if(millisecond==4000){
+						number.innerHTML='4';
+					}
+					if(millisecond==6000){
+						number.innerHTML='3';
+					}
+					if(millisecond==8000){
+						number.innerHTML='2';
+					}
+					if(millisecond==10000){
+						number.innerHTML='1';
+
+						setTimeout(function(){
+							number.style.display='none';
+							var result = getArrayItems(params,num);
+							for(var i in result){
+								var id = result[i]['_id'];
+								document.getElementById(id).setAttribute('class',bgcolor);
+								flag=true;
+								millisecond=0;
+								clearInterval(timer);
+							}
+						},2000)
+					}
+					$scope.$apply(function(){
+						$scope.rows.sort(randomsort);
+					});
+				},1500)
+			},1000)
+		}
+	})
+</script>
+</body>
+</html>
