@@ -19,6 +19,8 @@
 	.layout{margin-left: -3px;}
 	#number{position:absolute;top:50%;left:50%;margin-left:-42px;margin-top:-42px;font-size: 20px;display: none;}
 </style>
+<audio id="music" src="https://ofa83l6ao.qnssl.com/effect.mp3"></audio>
+<script src="http://cdn.bootcss.com/angular.js/1.2.2/angular.min.js"></script>
 </head>
 <body ng-controller="ctrl">
   <section id="main">
@@ -37,8 +39,6 @@
 		<div class="red layout" ng-click="bingo(1,'red')">特等奖</div>
 		<div id="number" class="black"></div>
 	</section>
-	<audio id="music" src="https://ofa83l6ao.qnssl.com/effect.mp3"></audio>
-<script src="http://cdn.bootcss.com/angular.js/1.2.2/angular.min.js"></script>
 <script>
 	var app = angular.module('app',[]);
 	app.controller('ctrl',function($scope,$http){
