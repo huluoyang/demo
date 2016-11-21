@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>年会抽奖</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<style>
+  <style>
 	#main{margin:0 auto;font-size: 12px;position: relative;}
 	div{display: inline-block;width: 42px;height: 42px;line-height: 42px;border-radius: 50%;color: white;cursor: pointer;text-align: center;}
 	.red{background: #fd7d7f;}
@@ -17,7 +17,7 @@
 	.black{background: #222;-webkit-transform: scale(2);}
 	.layout{margin-left: -3px;}
 	#number{position:absolute;top:50%;left:50%;font-size: 20px;display: none;}
-</style>
+  </style>
 </head>
 <body ng-controller="ctrl">
   <section id="main">
@@ -37,7 +37,7 @@
 		<div id="number" class="black"></div>
 	</section>
 	<audio id="music" src="audio/effect.mp3"></audio>
-<script src="http://cdn.bootcss.com/angular.js/1.2.2/angular.min.js"></script>
+<script src="https://cdn.bootcss.com/angular.js/1.2.2/angular.min.js"></script>
 <script>
 	var app = angular.module('app',[]);
 	app.controller('ctrl',function($scope,$http){
