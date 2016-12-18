@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="苏州、金鸡湖、大数据、竞赛平台">
+  <meta name="author" content="huluoyang <huluoyang@freecodecamp.cn>">
+  <title>金鸡湖大数据竞赛平台</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{
+      color:#777;
+    }
+    .btn-primary{
+      background-color: #03A9F4;
+      border:none;
+    }
+    input{
+      width:200px;
+      height:40px;
+      padding-left:10px;
+    }
+    .block{
+      text-align:center;
+      margin-bottom:10px;
+    }
+    .main{
+      padding-left: -15px;
+      padding-right: -15px;
+    }
+    .navbar{
+      margin-bottom: 0px;
+    }
+    .modal-header, .modal-footer{
+      border:none;
+    }
+    .modal-footer{
+      text-align: center;
+    }
+    .modal-footer>button{
+      width:160px;
+    }
+    .tips{
+      margin-top: 20px;
+    }
+    @media (min-width: 768px) {
+      .modal-dialog {
+          margin: 60px auto;
+      }
+    }
+    .timeline,.time,.number{
+      display: flex;
+      align-items: center;
+    }
+    .circle {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+        background: #03A9F4;
+        text-align: center;
+        margin-right: -1px;
+        color: white;
+    }
+    .line{
+      background: #03A9F4;
+      height: 10px;
+      flex:1;
+      margin-right: -1px;
+    }
+    .process{
+      display: flex;
+      margin-top:20px;
+    }
+    .one,.two,.three,.four{
+      flex:1;
+    }
+    .join{
+      margin: 40px auto;
+    }
+    .blue{
+      color:#03A9F4;
+    }
+    .mt20{
+      margin-top:20px;
+    }
+    .ml-5{
+      margin-left:-5px;
+    }
+    .mr-5{
+      margin-right:-5px;
+    }
+  </style>
+  <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+</head>
+<body>
+  <!-- navigation -->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">金鸡湖大数据竞赛平台</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="#">比赛介绍</a>
+          </li>
+          <li><a href="#">赛制流程</a></li>
+          <li><a href="#">数据集</a></li>
+          <li><a href="#">提交结果</a></li>
+          <li><a href="#">排行榜</a></li>
+          <li><a href="#">常见问题</a></li>
+          <li><a href="#">大赛评委</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" data-toggle="modal" data-target="#login">登录</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#register">注册</a></li>
+          <!-- <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">huluoyang <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">我的队伍</a></li>
+              <li><a href="#">我的档案</a></li>
+              <li><a href="#">排行榜</a></li>
+              <li class="divider"></li>
+              <li><a href="#">退出</a></li>
+            </ul>
+          </li> -->
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <!-- login Modal -->
+  <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title text-center" id="myModalLabel">登录</h3>
+        </div>
+        <div class="modal-body">
+          <div class="block">
+            <label for="account"><h4>账号</h4></label>
+            <input type="text" id="account" placeholder="请输入昵称或邮箱">
+          </div>
+          <div class="block">
+            <label for="password"><h4>密码</h4></label>
+            <input type="password" id="password" placeholder="请输入密码">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-primary login">登录</button>
+          <div class="tips">
+            <a href="#"  data-toggle="modal" data-dismiss="modal" data-target="#register">没有账号?点此注册</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- register Modal -->
+  <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title text-center" id="myModalLabel">注册</h3>
+        </div>
+        <div class="modal-body">
+          <div class="block">
+            <label for="nickname"><h4>昵称</h4></label>
+            <input type="text" id="nickname" placeholder="请输入昵称">
+          </div>
+          <div class="block">
+            <label for="email"><h4>邮箱</h4></label>
+            <input type="text" id="email" placeholder="请输入邮箱">
+          </div>
+          <div class="block">
+            <label for="password"><h4>密码</h4></label>
+            <input type="password" id="password" placeholder="请输入密码">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-primary">注册</button>
+          <div class="tips">
+            <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#login">已有账号，点此登录</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="main">
+    <img src="images/background.png" style="width:100%;">
+  </div> -->
+  <div class="container-fluid">
+    <div class="row">
+      <img src="images/background.png" style="width:100%;">
+      <div class="col-md-8 col-md-offset-1">
+        <div class="process">
+          <div class="one">报名</div>
+          <div class="two">初赛</div>
+          <div class="three">复赛</div>
+          <div class="four">决赛</div>
+          <div class="five">颁奖</div>
+        </div>
+        <div class="timeline">
+          <div class="circle ml-5">4.1</div>
+          <div class="line"></div>
+          <div class="circle">5.18</div>
+          <div class="line"></div>
+          <div class="circle">6.19</div>
+          <div class="line"></div>
+          <div class="circle">7.27</div>
+          <div class="line"></div>
+          <div class="circle mr-5">8.14</div>
+        </div>
+        <div class="number mt20">
+          <div class="one blue">100</div>
+          <div class="three blue">2000</div>
+          <div class="five blue mr-5">50000</div>
+        </div>
+        <div class="number">
+          <div class="one">参赛队伍</div>
+          <div class="three">参赛人数</div>
+          <div class="five mr-5">提交次数</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="join text-center">
+          <button type="button" class="btn btn-lg btn-primary">加入比赛</button>
+          <div class="status mt20">
+            <span class="blue">100</span>天前开始
+          </div>
+          <div class="status">
+            <span class="blue">100</span>天后结束
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
