@@ -88,6 +88,9 @@
     .mt20{
       margin-top:20px;
     }
+    .mb20{
+      margin-bottom: 20px;
+    }
     .ml-5{
       margin-left:-5px;
     }
@@ -109,10 +112,34 @@
     }
     table{
       border: 1px solid #eee;
+      margin-bottom: 10px;
     }
     td{
       padding: 10px;
       text-align: center;
+    }
+    ul{
+      margin-left: -38px;
+      list-style: none;
+    }
+    #upload{
+      width:288px;
+      display:inline-block;
+    }
+    #note{
+      margin-left: 3px;
+      border: 1px solid #eee;
+      flex:1;
+    }
+    #commit{
+      display: block;
+      margin: 20px auto;
+      width: 288px;
+    }
+    .avatar{
+      width: 60px;
+      height: 60px;
+      border-radius:50%;
     }
   </style>
   <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
@@ -137,12 +164,18 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active">
-            <a href="#">比赛介绍</a>
+          <li>
+            <a href="index.html">比赛介绍</a>
           </li>
-          <li><a href="process.html">赛制流程</a></li>
-          <li><a href="dataset.html">数据集</a></li>
-          <li><a href="commit.html">提交结果</a></li>
+          <li>
+            <a href="process.html">赛制流程</a>
+          </li>
+          <li>
+            <a href="dataset.html">数据集</a>
+          </li>
+          <li class="active">
+            <a href="commit.html">提交结果</a>
+          </li>
           <li><a href="leaderboard.html">排行榜</a></li>
           <li><a href="question.html">常见问题</a></li>
           <li><a href="judge.html">大赛评委</a></li>
@@ -228,7 +261,6 @@
   </div> -->
   <div class="container-fluid">
     <div class="row">
-      <img src="images/background.png" style="width:100%;">
       <div class="col-md-8 col-md-offset-1">
         <div class="process">
           <div class="one">报名</div>
@@ -273,61 +305,66 @@
     </div>
     <div class="row">
       <div class="wraper col-md-10 col-md-offset-1">
-        <h4 class="pt10">赛题介绍</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget</p>
+        <h4 class="pt10">提交规则</h4>
+        <ol>
+          <li>参赛者提交csv结果文件。</li>
+          <li>文件内容分为两列，第一类为“顾客id”，第二列为“逾期概率”，概率范围［0,1］格式如下：</li>
+          <table border="1px solid #eee">
+            <thead>
+              <td>顾客id</td>
+              <td>逾期率</td>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td>0.1</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>0.3</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>0.9</td>
+              </tr>
+            </tbody>
+          </table>
+          <li>每日最多可提交2次（引用datacastle)</li>
+          参考: <span class="blue">示例文件.csv</span>
+        </ol>
         <hr>
-        <h4 class="pt10">奖项设置</h4>
-        <table border="1px solid #eee">
+        <h4 class="pt10">提交结果</h4>
+        <div class="mb20">
+          <label for="upload">上传文件：</label>
+          <input type="file" id="upload" class="btn btn-primary btn-lg">
+        </div>
+        <div style="display:flex;">
+          <label for="note" style="float:left;">提交备注：</label>
+          <textarea id="note" rows="8" cols="38" placeholder="请输入备注信息"></textarea>
+
+        </div>
+        <button type="button" id="commit" class="btn btn-primary btn-lg">提交</button>
+        <hr>
+        <h4 class="pt10">我的提交</h4>
+        <p class="mt20"><span class="blue">100</span>次成功提交，队友<span class="blue">100</span>次成功提交</p>
+        <table class="col-md-12"> 
           <thead>
-            <td>奖项名称</td>
-            <td>奖项金额</td>
-            <td>队伍数量</td>
-            <td>备注</td>
+            <td>头像</td>
+            <td>昵称</td>
+            <td>文件名</td>
+            <td>时间</td>
+            <td>状态</td>
           </thead>
           <tbody>
             <tr>
-              <td><img src="icon/First Filled.png" alt="">冠军</td>
-              <td>50,000 RMB</td>
-              <td>1</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><img src="icon/Second Filled.png" alt="">亚军</td>
-              <td>30,000 RMB</td>
-              <td>2</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><img src="icon/Third Filled.png" alt="">季军</td>
-              <td>20,000 RMB</td>
-              <td>3</td>
-              <td></td>
+              <td><img src="images/chenghui.jpg" class="avatar"></td>
+              <td>程辉</td>
+              <td>test.csv</td>
+              <td>2017/01/01 10:33:34</td>
+              <td>成功</td>
             </tr>
           </tbody>
         </table>
-        <hr>
-        <h4 class="pt10">参赛对象</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
-        <h4 class="pt10">参赛规则</h4>
-        <ol>
-          <li>参赛团队参加任何一个算法资格赛初赛即认定报名成功。</li>
-          <li>参赛团队选择了其中某个行业进行应用创新，就需攻克对应行业的算法资格赛，资格赛和创新应用简介所在行业需保持一致，若参加了金融资格赛，但提交的是教育创新应用简介，将无法晋级复赛。</li>
-          <li>初赛参与多个资格赛的团队，需在初赛截至日期前明确一个应用方向（交通、教育、金融）提交创新应用简介，若在多个资格赛中提交了创新应用简介，则以参赛团队最后一次提交的创新应用简介为准，团队组成也以此资格赛中的人员组成为准。</li>
-          <li>所有参赛团队需在大赛初赛截至前3天，竞赛平台上完成报名参赛，截至日期前3天，报名组队功能将关闭。进入复赛阶段后，每人仅允许参与一支队伍。</li>
-          <li>为保证比赛的公平性，参赛团队提交作品时提交的帐号需进行实名认证（DataCastle通用规则）。大赛组织方承诺个人信息仅用于赛事数据授权与奖金发放，对其中所有涉及个人隐私的内容予以保密。（引用DataCastle)</li>
-        </ol>
-        <hr>
-        <h4 class="pt10">组队规则</h4>
-        <ol>
-          <li>团队人数上限5人</li>
-          <li>在第一阶段的最后3天无法新建队伍，但是可以加入其它队伍。</li>
-          <li>在最后一个阶段最后3天无法新建队伍，无法加入队伍。</li>
-          <li>竞赛进入历史阶段后解除一切限制，注意：答辩队伍成员仅限活跃期间加入的成员。（引用DataCastle)</li>
-        </ol>
-        <hr>
-        <h4 class="pt10">比赛声明</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
-
       </div>
     </div>
   </div>
