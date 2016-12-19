@@ -12,6 +12,9 @@
     body{
       color:#777;
     }
+    a:hover,a:focus{
+      text-decoration: none;
+    }
     .btn-primary{
       background-color: #03A9F4;
       border:none;
@@ -112,7 +115,7 @@
     }
     table{
       border: 1px solid #eee;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     td{
       padding: 10px;
@@ -141,10 +144,23 @@
       height: 60px;
       border-radius:50%;
     }
-    .info{
-      display: flex;
-      font-size: 20px;
-      margin: 20px auto;
+    .team{
+      text-align: center;
+    margin: 20px auto;
+    }
+    .createTeam{
+      display:block;
+      margin: 0 auto;
+    }
+    #uploadAvatar{
+      width: 60px;
+      height: 60px;
+      background: #03A9F4;
+      text-align: center;
+      line-height: 60px;
+      border-radius: 50%;
+      margin: 10px auto;
+      color:white;
     }
   </style>
   <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
@@ -178,22 +194,18 @@
           <li>
             <a href="dataset.html">数据集</a>
           </li>
-          <li>
+          <li class="active">
             <a href="commit.html">提交结果</a>
           </li>
-          <li>
-            <a href="rank.html">排行榜</a>
-          </li>
-          <li class="active">
-            <a href="question.html">常见问题</a>
-          </li>
+          <li><a href="rank.html">排行榜</a></li>
+          <li><a href="question.html">常见问题</a></li>
           <li><a href="judge.html">大赛评委</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" data-toggle="modal" data-target="#login">登录</a></li>
           <li><a href="#" data-toggle="modal" data-target="#register">注册</a></li>
           <!-- <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">huluoyang <img src="images/default.png" style="margin-top: -10px;"> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">huluoyang <img src="images/default.png" style="margin-top: -10px;"><span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="team.html">我的队伍</a></li>
               <li><a href="profile.html">我的档案</a></li>
@@ -265,9 +277,34 @@
       </div>
     </div>
   </div>
-  <!-- <div class="main">
-    <img src="images/background.png" style="width:100%;">
-  </div> -->
+  <!-- createTeam Modal -->
+  <div class="modal fade" id="createTeam" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title text-center" id="myModalLabel">建立队伍</h3>
+        </div>
+        <div class="modal-body">
+          <input type="file" style="display:none;" id="upload" value="上传头像">
+          <div id="uploadAvatar">
+            上传头像
+          </div>
+          <div class="block">
+            <label for="teamname"><h4>名称</h4></label>
+            <input type="text" id="teamname" placeholder="请输入队伍名称">
+          </div>
+          <div class="block">
+            <label for="intro"><h4>简介</h4></label>
+            <input type="text" id="introl" placeholder="请输入简介或队伍宣言">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-primary">组建队伍</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8 col-md-offset-1">
@@ -314,26 +351,23 @@
     </div>
     <div class="row">
       <div class="wraper col-md-10 col-md-offset-1">
-        <ol>
-          <h4><li>最终上传结果有固定格式吗？</li></h4>
-          <p>请按区域ID，时间片，预测值的格式上传您的结果。预测值为浮点数，保留至小数点后15位有效数字。</p>
-          <hr>
-          <h4><li>最终上传数据有时间顺序要求吗？</li></h4>
-          <p>
-            时间顺序不影响最终成绩。
-          </p>
-          <hr>
-          <h4><li>排行榜成绩以何时提交数据为准？</li></h4>
-          <p>
-            排行榜数据以每日11:00 am 前提交数据为准。
-          </p>
-          <hr>
-          <h4><li>在order info 中重复出现的数据应如何处理？</li></h4>
-          <p>
-            数据重复是因为同一个用户可能在一个10分钟片同一个地区发单被多次应答，但是这样的情况并不多，影响并不大。为了简化问题，重复的订单不需要去重，直接计入到缺口的计算中。
-          </p>
-        </ol>
+        <h4>组建队伍</h4>
+        <div class="team">
+          <img src="icon/Build Team.png" class="" />
+          <a href="#"  data-toggle="modal" data-target="#createTeam">
+            <button type="button" class="btn btn-primary btn-lg createTeam">组建队伍</button>
+          </a>
+        </div>
+
+      </div>
     </div>
   </div>
+<script charset="utf-8">
+  var upload=document.getElementById('upload')
+  var uploadAvatar=document.getElementById('uploadAvatar')
+  uploadAvatar.onclick=function(){
+    upload.click();
+  }
+</script>
 </body>
 </html>

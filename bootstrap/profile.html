@@ -12,12 +12,19 @@
     body{
       color:#777;
     }
+    a:hover,a:focus{
+      text-decoration: none;
+    }
+    .icon{
+      width:24px;
+      height:24px;
+    }
     .btn-primary{
       background-color: #03A9F4;
       border:none;
     }
     input{
-      width:200px;
+      width:300px;
       height:40px;
       padding-left:10px;
     }
@@ -85,8 +92,14 @@
     .pt10{
       padding-top:10px;
     }
+    .mb10{
+      margin-bottom: 10px;
+    }
     .mt20{
       margin-top:20px;
+    }
+    .ml20{
+      margin-left:20px;
     }
     .mb20{
       margin-bottom: 20px;
@@ -112,7 +125,7 @@
     }
     table{
       border: 1px solid #eee;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     td{
       padding: 10px;
@@ -132,7 +145,7 @@
       flex:1;
     }
     #commit{
-      display: block;
+      /*display: block;*/
       margin: 20px auto;
       width: 288px;
     }
@@ -143,8 +156,22 @@
     }
     .info{
       display: flex;
-      font-size: 20px;
-      margin: 20px auto;
+      padding: 10px;
+    }
+    /*.left{
+      flex:1;
+    }*/
+    .right{
+      margin-left:20px;
+    }
+    .verify{
+      margin: 30px auto;
+      display: block;
+      width:288px;
+    }
+    .judge{
+      display: flex;
+      margin:20px auto;
     }
   </style>
   <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
@@ -178,22 +205,18 @@
           <li>
             <a href="dataset.html">数据集</a>
           </li>
-          <li>
+          <li class="active">
             <a href="commit.html">提交结果</a>
           </li>
-          <li>
-            <a href="rank.html">排行榜</a>
-          </li>
-          <li class="active">
-            <a href="question.html">常见问题</a>
-          </li>
+          <li><a href="rank.html">排行榜</a></li>
+          <li><a href="question.html">常见问题</a></li>
           <li><a href="judge.html">大赛评委</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" data-toggle="modal" data-target="#login">登录</a></li>
           <li><a href="#" data-toggle="modal" data-target="#register">注册</a></li>
           <!-- <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">huluoyang <img src="images/default.png" style="margin-top: -10px;"> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">huluoyang <img src="images/default.png" style="margin-top: -10px;"><span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="team.html">我的队伍</a></li>
               <li><a href="profile.html">我的档案</a></li>
@@ -265,6 +288,43 @@
       </div>
     </div>
   </div>
+  <!-- verify Modal -->
+  <div class="modal fade" id="verify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title text-center" id="myModalLabel">实名认证</h3>
+        </div>
+        <div class="modal-body">
+          <div class="block">
+            <label for="identityNumber"><h4>证件号码</h4></label>
+            <input type="text" id="identityNumber" placeholder="请输入身份证/护照等有效身份证件号码">
+          </div>
+          <div class="block">
+            <label for="realName"><h4>真实姓名</h4></label>
+            <input type="text" id="realName" placeholder="请输入您的真实姓名">
+          </div>
+          <div class="block">
+            <label for="telphone"><h4>手机号码</h4></label>
+            <input type="text" id="telphone" placeholder="请输入您的手机号">
+          </div>
+          <div class="block">
+            <label for=""></label>
+            <button type="button" class="btn btn-primary">发送验证码</button>
+          </div>
+          <div class="block">
+            <label for="intro"><h4>验证码</h4></label>
+            <input type="text" id="introl" placeholder="请输入您收到的验证码" style="margin-left:20px;">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-primary">提交</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- <div class="main">
     <img src="images/background.png" style="width:100%;">
   </div> -->
@@ -314,26 +374,142 @@
     </div>
     <div class="row">
       <div class="wraper col-md-10 col-md-offset-1">
-        <ol>
-          <h4><li>最终上传结果有固定格式吗？</li></h4>
-          <p>请按区域ID，时间片，预测值的格式上传您的结果。预测值为浮点数，保留至小数点后15位有效数字。</p>
-          <hr>
-          <h4><li>最终上传数据有时间顺序要求吗？</li></h4>
-          <p>
-            时间顺序不影响最终成绩。
-          </p>
-          <hr>
-          <h4><li>排行榜成绩以何时提交数据为准？</li></h4>
-          <p>
-            排行榜数据以每日11:00 am 前提交数据为准。
-          </p>
-          <hr>
-          <h4><li>在order info 中重复出现的数据应如何处理？</li></h4>
-          <p>
-            数据重复是因为同一个用户可能在一个10分钟片同一个地区发单被多次应答，但是这样的情况并不多，影响并不大。为了简化问题，重复的订单不需要去重，直接计入到缺口的计算中。
-          </p>
-        </ol>
+        <h4>比赛档案</h4>
+        <div class="info">
+          <div class="left text-center">
+            <img src="images/chenghui.jpg" class="avatar"><br/>
+            <span>程辉</span>
+          </div>
+          <div class="right">
+            <p>总分 <span class="blue">100</span></p>
+            <p>排名 <span class="blue">100</span>/500</p>
+            <p>成就 <img src="icon/First Filled.png" class="icon"></p>
+          </div>
+        </div>
+        <hr>
+        <div style="display:flex;">
+          <h4 style="flex:1;">基本信息</h4>
+          <button class="btn btn-primary mb10" id="modify">编辑</button>
+        </div>
+        <table width="100%;" id="profile">
+          <tbody>
+            <tr>
+              <td>昵称</td>
+              <td>
+                <input type="text" placeholder="huluoyang">
+              </td>
+              <td>最高学历</td>
+              <td>
+                <input type="text" placeholder="这里显示学历">
+              </td>
+            </tr>
+            <tr>
+              <td>实名</td>
+              <td>
+                <input type="text" placeholder="胡洛阳">
+              </td>
+              <td>学校</td>
+              <td>
+                <input type="text" placeholder="这里显示学校">
+              </td>
+            </tr>
+            <tr>
+              <td>性别</td>
+              <td>
+                <input type="text" placeholder="男">
+              </td>
+              <td>专业</td>
+              <td>
+                <input type="text" placeholder="这里显示专业">
+              </td>
+            </tr>
+            <tr>
+              <td>手机号</td>
+              <td>
+                <input type="tel" placeholder="13552919401">
+              </td>
+              <td>公司</td>
+              <td>
+                <input type="text" placeholder="这里显示公司">
+              </td>
+            </tr>
+            <tr>
+              <td>邮箱</td>
+              <td>
+                <input type="email" placeholder="huluoyang@freecodecamp.cn">
+              </td>
+              <td>地址</td>
+              <td>
+                <input type="text" placeholder="这里显示详细地址">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <h4>我的队伍</h4>
+        <h4 class="text-center">您还没有加入比赛</h4>
+        <button type="button" class="btn btn-primary btn-lg verify">加入比赛</button>
+        <hr>
+        <h4>我的队伍</h4>
+        <div class="judge">
+          <div class="left">
+            <img src="images/monkey.jpg" class="avatar">
+          </div>
+          <div class="ml20">
+            <h4>猿猴崛起</h4>
+            <p>猿猴崛起 We are coding monkeys!</p>
+          </div>
+        </div>
+        <hr>
+        <h4>您对队友的期待</h4>
+        <textarea class="col-md-12" id="note" rows="8" cols="40" placeholder="1. 请简要说明您对队友的期待，您对队友的期待将插入发送的邀请的邮件中。
+2. 请简单从能力、编程语言、使用工具方面说明"></textarea>
+        <div class="text-center">
+          <button type="button"  id="commit" class="btn btn-primary btn-lg">保存</button>
+        </div>
+        <hr>
+        <h4>邀请队友</h4>
+        <p>
+          将给指定邮箱发送邀请链接，需要他/她登录并通过验证身份信息，最多只能发上限-当前人数个邮箱数目
+        </p>
+        <div class="mb20">
+          <input type="email" style="width: 350px;" placeholder="请输入邮箱，多个邮箱中间请用英文半角的逗号分隔">
+          <button type="button" class="btn btn-primary btn-lg" style="width:288px;">邀请队友</button>
+        </div>
+        <hr>
+        <h4>实名认证</h4>
+        <p class="text-center">实名认证是为了保证竞赛公平，我们承诺对您的个人信息保密。</p>
+        <div class="mt20 text-center">
+          <a href="#" data-toggle="modal" data-target="#verify">
+            <button class="btn btn-primary btn-lg" style="width:288px;">你尚未完成认证，去认证</button>
+          </a>
+        </div>
+
+        <hr>
+        <h4>实名认证</h4>
+        <p class="text-center">实名认证是为了保证竞赛公平，我们承诺对您的个人信息保密。</p>
+        <div class="wraper" style="width:300px;margin:0 auto;">
+          <h4 class="text-center">你已完成实名认证</h4>
+          <p style="padding-left:30px;">姓名：胡洛阳</p>
+          <p style="padding-left:16px;">身份证：12121312313221312313</p>
+          <p style="padding-left:16px;">手机号：13552919401</p>
+        </div>
+      </div>
     </div>
   </div>
+<script>
+  $('#profile').find('input').attr('readOnly',true).css('border-width','0');
+  $('#modify').click(function(){
+    if($('#profile').find('input').attr('readOnly')){
+      $('#profile').find('input').attr('readOnly',false);
+      $('#profile').find('input').css('border','1px solid #eee');
+      $('#modify').text('保存')
+    }else{
+      $('#profile').find('input').attr('readOnly',true);
+      $('#profile').find('input').css('border','none');
+      $('#modify').text('编辑')
+    }
+  })
+</script>
 </body>
 </html>
