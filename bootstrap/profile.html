@@ -7,175 +7,8 @@
   <meta name="keywords" content="苏州、金鸡湖、大数据、竞赛平台">
   <meta name="author" content="huluoyang <huluoyang@freecodecamp.cn>">
   <title>金鸡湖大数据竞赛平台</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body{
-      color:#777;
-    }
-    a:hover,a:focus{
-      text-decoration: none;
-    }
-    .icon{
-      width:24px;
-      height:24px;
-    }
-    .btn-primary{
-      background-color: #03A9F4;
-      border:none;
-    }
-    input{
-      width:300px;
-      height:40px;
-      padding-left:10px;
-    }
-    .block{
-      text-align:center;
-      margin-bottom:10px;
-    }
-    li span{
-      width: 56px;
-      display: inline-block;
-      text-align: right;
-    }
-    .navbar{
-      margin-bottom: 0px;
-    }
-    .modal-header, .modal-footer{
-      border:none;
-    }
-    .modal-footer{
-      text-align: center;
-    }
-    .modal-footer>button{
-      width:160px;
-    }
-    .tips{
-      margin-top: 20px;
-    }
-    @media (min-width: 768px) {
-      .modal-dialog {
-          margin: 60px auto;
-      }
-    }
-    .timeline,.time,.number{
-      display: flex;
-      align-items: center;
-    }
-    .circle {
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        border-radius: 50%;
-        background: #03A9F4;
-        text-align: center;
-        margin-right: -1px;
-        color: white;
-    }
-    .line{
-      background: #03A9F4;
-      height: 10px;
-      flex:1;
-      margin-right: -1px;
-    }
-    .process{
-      display: flex;
-      margin-top:20px;
-    }
-    .one,.two,.three,.four{
-      flex:1;
-    }
-    .join{
-      margin: 36px auto;
-    }
-    .blue{
-      color:#03A9F4;
-    }
-    .pt10{
-      padding-top:10px;
-    }
-    .mb10{
-      margin-bottom: 10px;
-    }
-    .mt20{
-      margin-top:20px;
-    }
-    .ml20{
-      margin-left:20px;
-    }
-    .mb20{
-      margin-bottom: 20px;
-    }
-    .ml-5{
-      margin-left:-5px;
-    }
-    .mr-5{
-      margin-right:-5px;
-    }
-    .wraper{
-      border:1px solid #eee;
-      margin-bottom:20px;
-    }
-    hr{
-      boder-top:1px solid #eee;
-    }
-    ol{
-      margin-left: -20px;
-    }
-    ol li{
-      margin-bottom: 5px;
-    }
-    table{
-      border: 1px solid #eee;
-      margin-bottom: 10px;
-    }
-    td{
-      padding: 10px;
-      text-align: center;
-    }
-    ul{
-      margin-left: -38px;
-      list-style: none;
-    }
-    #upload{
-      width:288px;
-      display:inline-block;
-    }
-    #note{
-      margin-left: 3px;
-      border: 1px solid #eee;
-      flex:1;
-    }
-    #commit{
-      /*display: block;*/
-      margin: 20px auto;
-      width: 288px;
-    }
-    .avatar{
-      width: 60px;
-      height: 60px;
-      border-radius:50%;
-    }
-    .info{
-      display: flex;
-      padding: 10px;
-    }
-    /*.left{
-      flex:1;
-    }*/
-    .right{
-      margin-left:20px;
-    }
-    .verify{
-      margin: 30px auto;
-      display: block;
-      width:288px;
-    }
-    .judge{
-      display: flex;
-      margin:20px auto;
-    }
-  </style>
-  <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.js"></script>
 </head>
@@ -381,7 +214,7 @@
             <img src="images/chenghui.jpg" class="avatar"><br/>
             <span>程辉</span>
           </div>
-          <div class="right">
+          <div class="ml20">
             <p>总分 <span class="blue">100</span></p>
             <p>排名 <span class="blue">100</span>/500</p>
             <p>成就 <img src="icon/First Filled.png" class="icon"></p>
@@ -451,7 +284,7 @@
         </div>
         <hr>
         <h4>您对队友的期待</h4>
-        <textarea class="col-md-12" id="note" rows="8" cols="40" placeholder="1. 请简要说明您对队友的期待，您对队友的期待将插入发送的邀请邮件中。
+        <textarea class="col-md-12 mb10" id="note" rows="8" cols="40" placeholder="1. 请简要说明您对队友的期待，您对队友的期待将插入发送的邀请邮件中。
 2. 请简单从能力、编程语言、使用工具方面说明。"></textarea>
         <div class="text-center">
           <button type="button"  id="commit" class="btn btn-primary btn-lg">保存</button>
