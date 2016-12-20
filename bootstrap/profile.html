@@ -32,9 +32,10 @@
       text-align:center;
       margin-bottom:10px;
     }
-    .main{
-      padding-left: -15px;
-      padding-right: -15px;
+    li span{
+      width: 56px;
+      display: inline-block;
+      text-align: right;
     }
     .navbar{
       margin-bottom: 0px;
@@ -391,60 +392,48 @@
           <h4 style="flex:1;">基本信息</h4>
           <button class="btn btn-primary mb10" id="modify">编辑</button>
         </div>
-        <table width="100%;" id="profile">
-          <tbody>
-            <tr>
-              <td>昵称</td>
-              <td>
-                <input type="text" placeholder="huluoyang">
-              </td>
-              <td>最高学历</td>
-              <td>
-                <input type="text" placeholder="这里显示学历">
-              </td>
-            </tr>
-            <tr>
-              <td>实名</td>
-              <td>
-                <input type="text" placeholder="胡洛阳">
-              </td>
-              <td>学校</td>
-              <td>
-                <input type="text" placeholder="这里显示学校">
-              </td>
-            </tr>
-            <tr>
-              <td>性别</td>
-              <td>
-                <input type="text" placeholder="男">
-              </td>
-              <td>专业</td>
-              <td>
-                <input type="text" placeholder="这里显示专业">
-              </td>
-            </tr>
-            <tr>
-              <td>手机号</td>
-              <td>
-                <input type="tel" placeholder="13552919401">
-              </td>
-              <td>公司</td>
-              <td>
-                <input type="text" placeholder="这里显示公司">
-              </td>
-            </tr>
-            <tr>
-              <td>邮箱</td>
-              <td>
-                <input type="email" placeholder="huluoyang@freecodecamp.cn">
-              </td>
-              <td>地址</td>
-              <td>
-                <input type="text" placeholder="这里显示详细地址">
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <ul id="profile">
+          <li class="col-md-6">
+            <span>昵称</span>
+            <input type="text" id="nickname" class="mb10 ml20" placeholder="huluoyang">
+          </li>
+          <li class="col-md-6">
+            <span>最高学历</span>
+            <input type="text" id="degree" class="mb10 ml20" placeholder="这里显示学历">
+          </li>
+          <li class="col-md-6">
+            <span>实名</span>
+            <input type="text" id="realname" class="mb10 ml20" placeholder="胡洛阳">
+          </li>
+          <li class="col-md-6">
+            <span>学校</span>
+            <input type="text" id="school"  class="mb10 ml20" placeholder="这里显示学校">
+          </li>
+          <li class="col-md-6">
+            <span>性别</span>
+            <input type="text" id="sex"  class="mb10 ml20" placeholder="男">
+          </li>
+          <li class="col-md-6">
+            <span>专业</span>
+            <input type="text" id="profession"  class="mb10 ml20" placeholder="这里显示专业">
+          </li>
+          <li class="col-md-6">
+            <span>手机号</span>
+            <input type="tel" id="telphone"  class="mb10 ml20" placeholder="13552919401">
+          </li>
+          <li class="col-md-6">
+            <span>公司</span>
+            <input type="text" id="company"  class="mb10 ml20" placeholder="这里显示公司">
+          </li>
+          <li class="col-md-6">
+            <span>邮箱</span>
+            <input type="email" id="email" class="mb10 ml20" placeholder="huluoyang@freecodecamp.cn">
+          </li>
+          <li class="col-md-6">
+            <span>地址</span>
+            <input type="text" id="address" class="mb10 ml20" placeholder="这里显示详细地址">
+          </li>
+        </ul>
         <hr>
         <h4>我的队伍</h4>
         <h4 class="text-center">您还没有加入比赛</h4>
@@ -462,15 +451,15 @@
         </div>
         <hr>
         <h4>您对队友的期待</h4>
-        <textarea class="col-md-12" id="note" rows="8" cols="40" placeholder="1. 请简要说明您对队友的期待，您对队友的期待将插入发送的邀请的邮件中。
-2. 请简单从能力、编程语言、使用工具方面说明"></textarea>
+        <textarea class="col-md-12" id="note" rows="8" cols="40" placeholder="1. 请简要说明您对队友的期待，您对队友的期待将插入发送的邀请邮件中。
+2. 请简单从能力、编程语言、使用工具方面说明。"></textarea>
         <div class="text-center">
           <button type="button"  id="commit" class="btn btn-primary btn-lg">保存</button>
         </div>
         <hr>
         <h4>邀请队友</h4>
         <p>
-          将给指定邮箱发送邀请链接，需要他/她登录并通过验证身份信息，最多只能发上限-当前人数个邮箱数目
+          将给指定邮箱发送邀请链接，需要他/她登录并通过验证身份信息，最多只能发10个邮箱，请谨慎选择队友。
         </p>
         <div class="mb20">
           <input type="email" style="width: 350px;" placeholder="请输入邮箱，多个邮箱中间请用英文半角的逗号分隔">
